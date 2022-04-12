@@ -5,7 +5,8 @@ const fs = require("fs");
 const PORT = process.env.PORT || 8080;
 
 const app = express();
-
+let products = null;
+let randomProd = null;
 app.get("/productos", (req, res) => {
   try {
     products = JSON.parse(fs.readFileSync(`./data/productos.txt`, "utf-8"));
