@@ -1,0 +1,35 @@
+[
+  {
+    "nombre": "Alumno",
+    "apellido": "Alumno sur",
+    "libros": [
+      { "nombre": "Harry Poter", "autor": "J.K. Rowling" },
+      { "nombre": "El Señor de los Anillos", "autor": "J.R.R. Tolkien" },
+      { "nombre": "El Alquimista", "autor": "Paulo Coelho" }
+    ],
+    "mascotas": ["perro", "gato", "gato"],
+    "id": 1648769557714
+  },
+  {
+    "nombre": "Alumno",
+    "apellido": "Alumno sur",
+    "libros": [
+      { "nombre": "Harry Poter", "autor": "J.K. Rowling" },
+      { "nombre": "El Señor de los Anillos", "autor": "J.R.R. Tolkien" },
+      { "nombre": "El Alquimista", "autor": "Paulo Coelho" }
+    ],
+    "mascotas": ["perro", "gato", "gato"],
+    "id": 1648769559944
+  },
+  {
+    "nombre": "Alumno",
+    "apellido": "Alumno sur",
+    "libros": [
+      { "nombre": "Harry Poter", "autor": "J.K. Rowling" },
+      { "nombre": "El Señor de los Anillos", "autor": "J.R.R. Tolkien" },
+      { "nombre": "El Alquimista", "autor": "Paulo Coelho" }
+    ],
+    "mascotas": ["perro", "gato", "gato"],
+    "id": 1648769560494
+  }
+]
