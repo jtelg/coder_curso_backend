@@ -1,0 +1,68 @@
+<!-- 
+{{#if viewProd}}
+<div class="w-full min-h-screen flex flex-col gap-4 items-center justify-center">
+    {{#if lenghtcero}}
+    {{> listprod}}
+    {{else}}
+    <article>
+        <h1 class="font-bold text-4xl text-purple-600">No hay productos en la lista</h1>
+    </article>
+    {{/if}}
+    <a class="mb-2 md:mb-0 mr-4 md:mr-0 bg-white px-5 py-2 bg-purple-400
+             text-center text-sm shadow-sm font-medium tracking-wider
+             border text-white rounded-full hover:shadow-lg hover:bg-purple-500"
+        href="/productos/alta">
+        Agregar un nuevo producto </a>
+</div>
+{{/if}} -->
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrega de clase 6</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        height: 100vh;
+        background: #f4f4f4;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <% if(viewForm){ %> <%- include('../views/components/form.ejs'); %> <% }%>
+      <% if(viewProd){ %>
+      <div class="w-full min-h-screen flex flex-col gap-4 items-center justify-center">
+        <% if(lenghtcero){ %> <%- include('../views/components/listprod.ejs');
+        %> <% } else{ %>
+        <article>
+          <h1 class="font-bold text-4xl text-purple-600">
+            No hay productos en la lista
+          </h1>
+        </article>
+        <% } %>
+        <a
+          class="mb-2 md:mb-0 mr-4 md:mr-0 bg-white px-5 py-2 bg-purple-400 text-center text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-purple-500"
+          href="/productos/alta"
+        >
+          Agregar un nuevo producto
+        </a>
+      </div>
+      <% }%>
+    </main>
+  </body>
+</html>

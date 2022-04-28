@@ -1,0 +1,85 @@
+<section class="formulario w-full min-h-screen flex flex-col gap-8 justify-center items-center">
+  <article>
+    <h1 class="w-full font-bold text-4xl text-purple-600">Formulario con EJS</h1>
+  </article>
+  <article>
+    <form action="/productos" method="post" enctype="multipart/form-data">
+      <div class="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-lg z-10">
+        <div class="grid  gap-8 grid-cols-1">
+          <div class="flex flex-col ">
+            <div class="flex flex-col sm:flex-row items-center">
+              <h2 class="font-semibold text-lg mr-auto">Formulario de carga de producto</h2>
+              <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
+            </div>
+            <div class="mt-5">
+              <div class="form">
+                <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                  <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                    <div class="mb-3 space-y-2 w-full text-xs">
+                      <label class="font-semibold text-gray-600 py-2">Titulo <abbr title="required">*</abbr></label>
+                      <input placeholder="Angular JS"
+                        class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
+                        required="required" type="text" name="integration[title]" id="integration_title">
+                      <p class="text-red text-xs hidden">Este campo es necesario.</p>
+                    </div>
+                  </div>
+                  <div class="mb-3 space-y-2 w-full text-xs">
+                    <label class="font-semibold text-gray-600 py-2">Precio <abbr title="required">*</abbr></label>
+                    <input placeholder="0,00"
+                      class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
+                      required="required" type="number" name="integration[price]" id="integration_price">
+                    <p class="text-red text-xs hidden">Este campo es necesario.</p>
+                  </div>
+                </div>
+                <div class="mb-3 space-y-2 w-full text-xs">
+                  <label class=" font-semibold text-gray-600 py-2">URL de imagen <abbr title="required">*</abbr></label>
+                  <div class="flex flex-wrap items-stretch w-full mb-4 relative">
+                    <div class="flex">
+                      <span
+                        class="flex items-center leading-normal bg-grey-lighter border-1 rounded-r-none border border-r-0 border-blue-300 px-3 whitespace-no-wrap text-grey-dark text-sm w-12 h-10 bg-blue-300 justify-center items-center  text-xl rounded-lg text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                          </path>
+                        </svg>
+                      </span>
+                    </div>
+                    <input type="text"
+                      class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border border-l-0 h-10 border-grey-light rounded-lg rounded-l-none px-3 relative focus:border-blue focus:shadow"
+                      placeholder="https://" name="integration[imageurl]" id="integration_imageurl">
+                  </div>
+                </div>
+                <div class="md:space-y-2 mb-3 mt-4">
+                  <div class="flex items-center">
+                    <label class="">
+                      <input class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" :accept="accept"
+                        id="thumbnail" name="thumbnail">
+                    </label>
+                  </div>
+                </div>
+                <p class="text-xs text-red-500 text-right my-6">
+                  Los campos obligatorios están marcados con un
+                  asterisco <abbr title="Required field">*</abbr></p>
+                <div class="mt-5 text-right md:flex-row flex flex-col-reverse gap-2">
+                  <a class="mb-2 md:mb-0 mr-4 md:mr-0 bg-white px-5 py-2 text-center text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
+                    href="/productos">
+                    Listado de productos </a>
+                  <button class="mb-2 md:mb-0 bg-purple-400 px-5 py-2 text-sm shadow-sm 
+                    font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-purple-500"
+                    type="submit">
+                    Guardar producto
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </article>
+
+
+
+</section>
