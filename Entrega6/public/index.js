@@ -8,7 +8,7 @@ socket.on("mensage_back", (data) => {
 
 const renderChat = (data) => {
   const html = `
-    <div id="overf" class="absolute bottom-0 max-h-[12rem] overflow-auto w-6/6">
+    <div id="overf" class="flex flex-col gap-1 absolute bottom-0 max-h-[12rem] overflow-auto w-6/6">
       ${data
         .map((x) => {
           return `
