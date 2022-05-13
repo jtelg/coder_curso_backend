@@ -5,6 +5,7 @@ const multer = require("multer");
 const Contenedor = require("../utils/data_utils");
 const funcProd = new Contenedor("productos", "ultimo");
 const funcChat = new Contenedor("mensajes", "primero");
+const funcCart = new Contenedor("carrito");
 
 const { Router } = express;
 const router = Router();

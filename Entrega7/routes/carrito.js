@@ -5,7 +5,7 @@ const router = Router();
 
 const Contenedor = require("../utils/data_utils");
 const funcCart = new Contenedor("carrito");
-
+const funcProd = new Contenedor("carrito");
 // crea un nuevo carrito
 router.post("/", (req, res, next) => {
   try {
@@ -36,11 +36,11 @@ router.delete("/:id", (req, res) => {
   }
 });
 
-router.get("/:id/productos", (req, res) => {
-  res.render("index");
+router.get("/:id/productos", (req, res) => {  
+  res.send(JSON.stringify(funcCart.getProds_xcarro(+req.params.id)));
 });
 
-router.post("/:id/productos", (req, res) => {
+router.post("/:id/productos", (req, res, next) => {
   // const io = req.app.get("socketio");
   const idcarro = +req.params.id;
   console.log(req.body);
@@ -56,7 +56,7 @@ router.post("/:id/productos", (req, res) => {
         }
       });
     }
-    io.sockets.emit("productcart_back", arr_prods);
+    // io.sockets.emit("productcart_back", arr_prods);
     res.status(200).send("Producto agregado al carrito");
   } catch (error) {
     const errorprod = new Error("Error al cargar el producto" + error);
@@ -78,7 +78,7 @@ router.delete("/:id/productos/:id_prod", (req, res) => {
         }
       });
     }
-    io.sockets.emit("productcart_back", arr_prods);
+    // io.sockets.emit("productcart_back", arr_prods);
     res.status(200).send("Producto eliminado con exito del carrito");
   } else {
     res.send({

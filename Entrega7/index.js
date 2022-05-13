@@ -95,7 +95,6 @@ app.get("/", (req, res) => {
     });
   }
   if (req.query.admin) proditem_view = true;
-  console.log('hola');
   res.render("index", {
     altaProd: false,
     arr_prods,
