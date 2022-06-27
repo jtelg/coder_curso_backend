@@ -1,23 +1,21 @@
-module.exports = {
-    mongodb: {
-        cnxStr: 'mongodb://localhost/ecommerce',
-        options: {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-            serverSelectionTimeoutMS: 5000,
-        }
-    },
-    firebase: {
-        "type": "service_account",
-        "project_id": "probando-d0b5e",
-        "private_key_id": "a40c76091183a33f095228f7c8b00e4f474c74f5",
-        "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCi2plOAtUbKBcz\n28E4E+8voT7KcYsx/8VkTbLds25emgrOkA8oCuBo98QZvHn4DP7NpyDiLCIdXosO\nTJ9AfMzT3sQLZHII8Yfa20PozLKbGPWeGaT2WBeo6SkKEdshqTiSM+t9FbprpMPN\nRVLfDTDNziC6L6zzH2W8zmD3hBKmp+SkIldsHkd4G5Rnfzf89bWflUkaaODcicMt\nMN3PGyCnE//88feV+HOqALfA6XGviyyBQSvllnIIXOGGcFlnhP1ek/MoxPPd8rrU\nGy84Dvjat5hKcelu7V2I2pnauwDz0NuWUZBhbvNS/0y6eg1dkAq0QAoIqTBPBo2Q\n/H74aq93AgMBAAECggEAGKPypjcPf3hlaldJuO5rNk2zbnYXlY0ZlL+c3KaVgILW\nN8LcSDa9FaTHaw11du6gbwVmmFINJ1xytcsqHVvEshn2l7Ku/mNtJtQeRk8Shx0T\nrMQ8jXluuwPsTbW97i3ofVaVvutWtYrMhXaDv3QDemBB22nzRSXvAs5HJaw6FjT7\nFmXhmuku2kyn12iysLeE68wKOhqAhHjtMHoxxlx4JRcRo9htlmfVw5L0LTvtJ9nS\nOpO23uPRYihrF32bwJ9iIFl4CUhNYDVwNwUTrFmckNiWfMyAnzeje37QemBb2snA\nZGPNFBmsj0med/4rolDC7aoxp5yVD5qA96ocq5XQgQKBgQDbDgysBN6pkI9O7bo0\nP5sCH5yp07LU9j/JEJUw2JEZEMFpfNF+W3FZlpy4Hkei/jG59qLho6uVoRp1McVY\n+i9xvvNn+z5Qs4NQs9dtPpfzTsjuDLRkCtABL+bpEOCypf0E/bPDcI4dXr4OtJnu\nDkgJTWmnzN73I086NY0nVrj4UQKBgQC+UgGitVmYPPZ6cz/zslnVLsc1RLrvhwoC\n9N21aqg46KWlz+Yxl1QVVzgDWRpcsPZ2qXHzchLr8huP9dmytl3WzyP+QACHEFbT\ncm6lvuENvptYauTuuymUca1DS1QalsvN+Dyw9T9pZSxWP8rBbVJnQ5ghiqDmI5G4\ntbbl4+2BRwKBgGo5MePoqKDJPPUlSnozrdMlyS6BPeMPVncF15LMMfBZs7CXmm8P\noLO02WJfLJXZdfubofiRCY+Rg+b4r54qE/+wfRAbQWiY5ECqNPkAtWaC+eSVvJQW\nui8ZL3wtdwiqfTuCWz2WwxNy8e7nnQ1XV49LPsTkD+r/8FdlyIEfCKtBAoGBALfm\nScpM7bva/Fep0VvLNF54Cul/9hnJJHVi4nCQFOiYdKdZ0haNISRV2LvzdzOlkyFp\n7b/MtFfk45kheC/lY5tTIHZmpZvcv+klI6FoZdKAIV84OuorU6wqg78IpMXkfB4U\nBaD/+TwAFO1qSqLI3d0GRZPzfjGioQYYIBjXOwG1AoGAP7ckkwFdwbMjB0JVp+uq\nJe4UgGwGp1nzX9Gaolm0Fseoz9/dLkmjRncvu08B1MnAfY7z+u0eBS4QVqn4vQyP\nL/Z4xWjWV2nR09N8+ij5snviJOPlyRwXF4pwMjjO4ihLLD9EVnY/+xVlJgcFp1mq\nQIbJvMtCBqv7rI+EYWYllpo=\n-----END PRIVATE KEY-----\n",
-        "client_email": "firebase-adminsdk-bx8rj@probando-d0b5e.iam.gserviceaccount.com",
-        "client_id": "102649946009022189922",
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-bx8rj%40probando-d0b5e.iam.gserviceaccount.com"
-    }
+const config = {
+  mongodb: {
+    cnxStr: "mongodb+srv://coder_admin:admin123@clusterecoomercecoder.yho5b.mongodb.net/Ecommerce-coder?retryWrites=true&w=majority",
+  },
+  firebase: {
+    type: "service_account",
+    project_id: "custer-agency",
+    private_key_id: "8d395f64bd7641b78908c98263224a87806aeed7",
+    private_key:
+      "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCtNsaAir535CXI\n+4oQ05zxDffd+cs4pR/Do8TmGUQLAhj3RxiXC9+apA6GahQjZZd+B9dRALR0Z7b7\nQxtQQ4MpiPBqxokEjY/Psbq4+8t0wxNlZqi7jwXct3k8X0r8oCg9k/63e5gDiIzM\nfhQ1vpIqIUG8rDVNJTSBk0i01cQoH+pIJ4CtL6G1fs2BXWeQnQIu/RzxGp6W2cMH\ni3LbGL0dUrBJb52nNY1vuQ8//ZURC+4qfj0Y57HXUg3S1ZKRLTiBrAIr2B0/nZZy\nyobqdaGb52TFuFZGMu0VpssbtBdFi+pBggGlm7bil0mMbY4eO357KA8e6w1wjdtj\nh/IGmODHAgMBAAECggEAA2zh4AjeW2CXnrHauRp2MA4mqK0X57bcOfIzIpm9Trpr\n4/fz9Ii3k0dLQj02yLxpkoR1LZTl/KdQZwecsqmjHl8m4fWrH/vsrB7HooDYNSbm\na0rsa0kYxJScQSVhRj2kjhMvJlG7X9aDckfL/oQWP98IfcKqCyyBLU7MUUco6eIv\nV/DJ5rg+Vfkg1B/p5tm2NZ1OYFnE/0BB4476/Mu3iG1mIIFaxzlHaZAdch8onSEP\n5LVacaXEBIUr74d5GO22gYX05pe7VvdIp5Evztp2GDgRewMyh4OCzPXRLSzm+bve\nForW9LYNznnt3zItikEdPRLstSI5clabzzodBiisgQKBgQDflgwkJF6Vta8mvg5C\nfxed4fecRMjSLvsAaO1HSK7sgZbFWJ0+FzZfHFVhoE5TWg+E7jRXj8rTEoNY3Gii\neDFkZ9qmdzeed2d3xIxzAEP0hBSS2m0EgDj8o2I4G5Mc8cCPaJ5qZdT1PPqkYSA9\njl0fXZ7/eBAXNu3uOR1EziSSFQKBgQDGU0QVhTuBSjBIfaG1HXMCdWnZoTqeYILh\neIUsaACp3SFWz70udelTsLegijtbu2VLprWFVoDjDtgZK3sJTV3qYAwjf5BPocRq\nwmwHQ9HiSsEaAH5fdcVVfTUjyseqAQ9XNfC6GnDs/7z4szGD1apS1M/SArh6EIcC\nIuz/Vu8KawKBgQDMt3Aqb3qDDTVv/bjEveV70/iJhplxiT6dI3WOPUicmBLaYsam\noU5RS3oJx2OwAdgP2KLoQWpuVJca98R+bhqbWlPi82ljmOSNztLiQS33ZjAIPiJv\nao/DEj3OLcFHUTsEk7/on5CbctfzRlLkycMOAwSf2OiyuMKlynm4FB97+QKBgCgy\nSjNebKAYzE51ACh4To4qBAkzD3F4OC7AwaUtcyz6f75bnoljJqZqw90LB1rhUXeS\n02myDa93m78GPAq3nphZXTx4p2QscmX8/+49BbYq1paRkQuCEDvyg6m8eNlxG43e\nhesCXu76Km/xydBhpwLg1TpIiOFcpjB9qbFbCln/AoGANafklF1ILisobY4EyAgp\ncOxPEFW70+KC+L4ULVDWHzPmTpiupitcKVk6burWbGDxf9WRwXktz3062r+/9QJz\n9mw2d56VWIBDs5c7JfPOYrHs8mQ1yjdHg73cKpPu1jRoPhLBMIIyNeWy54u8tO7w\nEvMrh925O3likTNZXI2oBkU=\n-----END PRIVATE KEY-----\n",
+    client_email:
+      "firebase-adminsdk-7ps7z@custer-agency.iam.gserviceaccount.com",
+    client_id: "114406748694866694579",
+    auth_uri: "https://accounts.google.com/o/oauth2/auth",
+    token_uri: "https://oauth2.googleapis.com/token",
+    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+    client_x509_cert_url:
+      "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-7ps7z%40custer-agency.iam.gserviceaccount.com",
+  },
 }
+export default config;

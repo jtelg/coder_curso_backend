@@ -14,7 +14,9 @@
     </div>
     {{else}}
     {{!-- <div class="w-5/6 px-4 py-4 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" id="list_user"></div> --}}
-    <div class="w-5/6 px-4 py-4 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div id="gridprods"></div>
+
+     {{!-- <div class="w-5/6 px-4 py-4 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {{#each arr_prods}}
         <div class="card transition-all">
             <img src="{{this.imageurl}}" alt="">
@@ -34,7 +36,7 @@
                 <div class="w-full flex items-center justify-center">
                     {{#if this.check}}
                     <button class="bg-red-500 whitespace-nowrap uppercase text-sm text-white rounded-sm px-2 py-1"
-                        title="Agregar producto al carrito" onclick="return deleteProd_xcarro({{this.id}})">
+                        title="Agregar producto al carrito" onclick="return deleteProd_xcarro({{json this}})">
                         Eliminar del carrito
                     </button>
                     {{else}}
@@ -47,7 +49,7 @@
             </div>
         </div>
         {{/each}}
-    </div>
+    </div> --}}
     {{/if}}
 
 </div>

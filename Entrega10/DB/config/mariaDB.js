@@ -1,4 +1,6 @@
-const knex_mariaDB = require("knex")({
+import DB_knex_mariaDB from "knex";
+
+const knex_mariaDB = DB_knex_mariaDB({
   client: "mysql",
   connection: {
     host: "sql405.main-hosting.eu",
@@ -11,38 +13,54 @@ const knex_mariaDB = require("knex")({
 });
 
 knex_mariaDB.schema
-  .createTableIfNotExists("productos", (table) => {
-    table.increments("id").primary();
-    table.string("nombre");
-    table.decimal("precio", 14, 2);
-    table.string("stock");
-    table.string("codigo");
-    table.string("descripcion");
-    table.string("imageurl");
-    table.string("timestamp");
-    table.string("feccarga");
-  })
-  .then(() => {
-    console.log("Tabla productos Creada");
+  .hasTable("productos")
+  .then((exist) => {
+    if (exist) return;
+    schema
+      .createTable("productos", (table) => {
+        table.increments("id").primary();
+        table.string("nombre");
+        table.decimal("precio", 14, 2);
+        table.string("stock");
+        table.string("codigo");
+        table.string("descripcion");
+        table.string("imageurl");
+        table.string("timestamp");
+        table.string("feccarga");
+      })
+      .then(() => {
+        console.log("Tabla productos creada");
+      })
+      .catch((err) => {
+        throw err;
+      });
   })
   .catch((err) => {
     throw err;
   });
 
 knex_mariaDB.schema
-  .createTableIfNotExists("mensajes", (table) => {
-    table.increments("id").primary();
-    table.string("nombre");
-    table.string("msn");
-    table.string("color");
-    table.string("timestamp");
-    table.string("feccarga");
-  })
-  .then(() => {
-    console.log("Tabla mensajes Creada");
+  .hasTable("mensajes")
+  .then((exists) => {
+    if (exists) return;
+    schema
+      .createTable("mensajes", (table) => {
+        table.increments("id").primary();
+        table.string("nombre");
+        table.string("msn");
+        table.string("color");
+        table.string("timestamp");
+        table.string("feccarga");
+      })
+      .then(() => {
+        console.log("Tabla mensajes creada");
+      })
+      .catch((err) => {
+        throw err;
+      });
   })
   .catch((err) => {
     throw err;
   });
 
-module.exports = knex_mariaDB;
+export default knex_mariaDB;

@@ -1,22 +1,23 @@
-const fs = require("fs");
-const knex_mariaDB = require("../DB/config/mariaDB");
-const knex_sqliteDB = require("../DB/config/sqliteDB");
-const ContenedorFirebase = require("./contenedor/ContenedorFirebase");
-const ProductosAPI_firebase = new ContenedorFirebase("productos");
-// const ContenedorCarro = require("./contenedor/ContenedorMongoDb");
-// const CarritoAPI_mnogoDB = new ContenedorCarro();
-// const ProductosCRRO_firebase =
+import { readFileSync, writeFileSync } from "fs";
+import knex_mariaDB from "../../DB/config/mariaDB.js";
+import knex_sqliteDB from "../../DB/config/sqliteDB.js";
+import ContenedorFirebase from "./Firebase_functions.js";
+import ContenedorMongoDB from "./Mongo_functions.js";
+
 class Contenedor {
-  constructor(nombre, posicion, DB) {
+  constructor(nombre, DB) {
     this._DB = DB;
-    if (this._DB !== "JSON") {
-      this.tablename = nombre;
-    } else {
+    this.tablename = nombre;
+
+    if (this._DB === "Firebase") {
+      this.API_Firebase = new ContenedorFirebase(nombre);
+    } else if (this._DB === "MongoDB") {
+      this.API_mongoDB = new ContenedorMongoDB(nombre, "");
+    } else if (this._DB === "JSON") {
       this.pathname = `./public/data/${nombre}.json`;
-      this.posicion = posicion;
       // recupera los datos del txt y lo convierte en un array de objetos
       try {
-        this.json = JSON.parse(fs.readFileSync(this.pathname, "utf-8"));
+        this.json = JSON.parse(readFileSync(this.pathname, "utf-8"));
       } catch (error) {
         this.json = null;
       }
@@ -30,31 +31,23 @@ class Contenedor {
       .replace(/T/, " ")
       .replace(/\..+/, "")
       .replace(/-/g, "/");
+    if (this._DB !== "Firebase") obj.id = Date.now();
     switch (this._DB) {
       case "SqliteDB":
         return await knex_sqliteDB(this.tablename).insert(obj);
-
       case "MariaDB":
         return await knex_mariaDB(this.tablename).insert(obj);
       case "JSON":
-        obj.id = Date.now();
         // lee el archivo, si existe recupera un array con objetos y le agrega el nuevo.
         if (this.json) {
-          if (this.posicion === "ultimo") {
-            this.json.unshift(obj);
-          } else {
-            this.json.push(obj);
-          }
+          this.json.push(obj);
           this.escribirArchivo(this.json);
           return obj.id;
         }
-
       case "Firebase":
-        ProductosAPI_firebase.guardar();
-        break;
+        return this.API_Firebase.guardar(obj);
       case "MongoDB":
-        CarritoAPI_mnogoDB.guardar();
-        break;
+        return this.API_mongoDB.guardar(obj);
     }
   }
   async getById(id) {
@@ -74,17 +67,14 @@ class Contenedor {
         const obj = this.json.find((e) => e.id === id);
         if (obj) return obj;
       case "Firebase":
-        ProductosAPI_firebase.listar(id);
-        break;
+        return this.API_Firebase.listar(id);
       case "MongoDB":
-        // CarritoAPI_mnogoDB.listar(id);
-        break;
+        return this.API_mongoDB.listar(id);
     }
     return null;
   }
 
   async getAll() {
-    console.log(this._DB);
     switch (this._DB) {
       case "SqliteDB":
         return await knex_sqliteDB(this.tablename).select("*");
@@ -95,11 +85,9 @@ class Contenedor {
         if (obj) return obj;
         break;
       case "Firebase":
-        ProductosAPI_firebase.listarAll();
-        break;
+        return this.API_Firebase.listarAll();
       case "MongoDB":
-        // CarritoAPI_mnogoDB.listarAll();
-        break;
+        return this.API_mongoDB.listarAll();
     }
     return this.json ? this.json : [];
   }
@@ -114,11 +102,9 @@ class Contenedor {
         this.json = this.json.filter((e) => e.id !== id);
         this.escribirArchivo(this.json);
       case "Firebase":
-        ProductosAPI_firebase.borrar(ids);
-        break;
+        return this.API_Firebase.borrar(id);
       case "MongoDB":
-        CarritoAPI_mnogoDB.borrar(id);
-        break;
+        return this.API_mongoDB.borrar(id);
     }
   }
 
@@ -129,7 +115,7 @@ class Contenedor {
   escribirArchivo(dato) {
     dato = dato ? JSON.stringify(dato) : "";
     try {
-      fs.writeFileSync(this.pathname, `${dato}`);
+      writeFileSync(this.pathname, `${dato}`);
     } catch (error) {
       return `Error al escribir el archivo: ${error}`;
     }
@@ -139,7 +125,7 @@ class Contenedor {
 
   async saveProds_xcarro(idcarro, prod) {
     const list_carros = await this.getAll();
-    const indexCarro = list_carros.findIndex((e) => e.id === idcarro);
+    const indexCarro = list_carros.findIndex((e) => e.id.toString() === idcarro.toString());
     list_carros[indexCarro].productos.push(prod);
     this.escribirArchivo(list_carros);
   }
@@ -156,9 +142,9 @@ class Contenedor {
   }
   async deleteProd_xcarro(idcarro, id_prod) {
     const list_carros = await this.getAll();
-    const obj_carro = list_carros.find((e) => e.id === idcarro);
-    obj_carro.productos = obj_carro?.productos.filter((e) => e.id !== id_prod);
+    const obj_carro = list_carros.find((e) => e.id.toString() === idcarro.toString());
+    obj_carro.productos = obj_carro?.productos.filter((e) => e.id.toString() !== id_prod.toString());
     this.escribirArchivo(list_carros);
   }
 }
-module.exports = Contenedor;
+export default Contenedor;

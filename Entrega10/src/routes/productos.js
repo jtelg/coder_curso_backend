@@ -1,11 +1,14 @@
-const express = require("express");
-const req = require("express/lib/request");
-var app = express();
-const multer = require("multer");
-const Contenedor = require("../utils/data_utils");
-const funcProd = new Contenedor("productos", "ultimo", 'MariaDB');
-const funcCart = new Contenedor("carrito", '', 'JSON');
-
+import express from "express";
+import multer from "multer";
+import Contenedor from "../utils/DB_functions.js";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+import dotenv from "dotenv";
+dotenv.config({ path: __dirname + "/../../.env" });
+const funcProd = new Contenedor("productos", process.env.DATABASE_USE);
+const funcCart = new Contenedor("carrito", "JSON");
 const { Router } = express;
 const router = Router();
 
@@ -28,24 +31,13 @@ const UserAuth = (req, res) => {
 };
 router.get("/", async (req, res, next) => {
   UserAuth(req, res);
+  const arr_prods = await funcProd.getAll();
+  const arr_prodscart = await funcCart.getProds_xcarro(601);
   const io = req.app.get("socketio");
   //Coneccion Socket
   io.on("connection", async (socket) => {
-    // Funciones del producto
-    const arr_prods = await funcProd.getAll();
-    const arr_prodscart = await funcCart.getProds_xcarro(601);
-    if (arr_prodscart.length > 0) {
-      arr_prods.forEach((prod) => {
-        prod.check = false;
-        if (arr_prodscart.find((e) => e.id === prod.id)) {
-          prod.check = true;
-        }
-      });
-    }
-    socket.emit("productlist_back", await funcProd.getAll());
+    socket.emit("productlist_back", arr_prods);
   });
-  const arr_prods = await funcProd.getAll();
-  const arr_prodscart = await funcCart.getProds_xcarro(601);
   if (arr_prodscart.length > 0) {
     arr_prods.forEach((prod) => {
       prod.check = false;
@@ -66,7 +58,7 @@ router.get("/", async (req, res, next) => {
 //   res.render("components/form", { viewForm: true });
 // });
 
-router.get("/:id", async(req, res) => {
+router.get("/:id", async (req, res) => {
   const id = +req.params.id;
   const prods = await funcProd.getAll();
   arr = prods.find((p) => p.id === id);
@@ -94,9 +86,9 @@ router.post("/", upload.single("thumbnail"), async (req, res, next) => {
 router.delete("/:id", async (req, res) => {
   UserAuth(req, res);
   const io = req.app.get("socketio");
-  const id = +req.params.id;
-  if (id > 0) {
-    await funcProd.deleteById(+req.params.id);
+  const id = req.params.id;
+  if (id) {
+    await funcProd.deleteById(id);
     io.sockets.emit("productlist_back", await funcProd.getAll());
     res.status(200).send("Producto eliminado con exito");
   } else {
@@ -107,7 +99,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async(req, res) => {
+router.put("/:id", async (req, res) => {
   UserAuth(req, res);
   const id = +req.params.id;
   const prods = await funcProd.getAll();
@@ -117,4 +109,4 @@ router.put("/:id", async(req, res) => {
   res.send("Producto Modificado");
 });
 
-module.exports = router;
+export default router;
