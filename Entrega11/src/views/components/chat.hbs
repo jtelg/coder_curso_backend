@@ -1,0 +1,140 @@
+<section class="formulario w-full flex flex-col gap-2 mt-2 justify-center items-center">
+    <article>
+        <h1 class="w-full uppercase font-bold text-xl text-purple-600">Chatea con los administradores</h1>
+    </article>
+    <article class="w-full  mx-4 md:mx-0 md:mr-8">
+        <form id="formChat" class="m-0">
+            <div class="w-full space-y-8 px-10 py-6 bg-white rounded-xl shadow-lg z-10">
+                <div class="grid  gap-8 grid-cols-1">
+                    <div class="flex flex-col ">
+                        <div class="mt-5">
+                            <div class="form">
+                                <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                                    <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                                        <div class="mb-3 space-y-2 w-full text-xs">
+                                            <label class="font-semibold text-gray-600 py-2">Nombre <abbr
+                                                    title="required">*</abbr></label>
+                                            <input type="text" placeholder="" id="nb" required="required"
+                                                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" />
+                                        </div>
+                                        <div class="mb-3 space-y-2 w-full text-xs">
+                                            <label class="font-semibold text-gray-600 py-2">Apellido <abbr
+                                                    title="required">*</abbr></label>
+                                            <input type="text" placeholder="" id="apellido" required="required"
+                                                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" />
+                                        </div>
+                                        <div class="mb-3 space-y-2 w-full text-xs">
+                                            <label class="font-semibold text-gray-600 py-2">Email <abbr
+                                                    title="required">*</abbr></label>
+                                            <input type="text" placeholder="" id="email" required="required"
+                                                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="mb-3 space-y-2 w-full text-xs">
+                                        <label class="font-semibold text-gray-600 py-2">Edad <abbr
+                                                title="required">*</abbr></label>
+                                        <input type="number" placeholder="" id="edad" required="required"
+                                            class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" />
+                                    </div>
+                                    <div class="mb-3 space-y-2 w-full text-xs">
+                                        <label class="font-semibold text-gray-600 py-2">Alias <abbr
+                                                title="required">*</abbr></label>
+                                        <input type="text" placeholder="" id="alias" required="required"
+                                            class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" />
+                                    </div>
+                                    <div class="mb-3 space-y-2 w-full text-xs">
+                                        <label class="font-semibold text-gray-600 py-2">Avatar <abbr
+                                                title="required">*</abbr></label>
+                                        <input type="text" placeholder="" id="avatar" required="required"
+                                            class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" />
+                                    </div>
+                                    <div class="mb-3 space-y-2 w-1/6 text-xs"
+                                        title="Seleccione un color para su nombre">
+                                        <label class="font-semibold text-gray-600 py-2">Color</label>
+                                        <input type="color" placeholder="" id="inpcolor"
+                                            class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 space-y-2 w-full text-xs">
+                                    <div id="caja" class="min-h-[19.3rem] relative px-4"></div>
+                                </div>
+                                <div class="mb-3 w-full flex text-xs">
+                                    <input type="text" placeholder="Escribe tu mensaje" id="msn" required="required"
+                                        class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" />
+                                    <button
+                                        class="relative flex overflow-hidden items-center justify-center rounded-full transform transition-all duration-200 w-1/6"
+                                        type="submit">
+                                        <div
+                                            class="flex gap-4 flex-col justify-center items-center transform transition-all duration-300 origin-center overflow-hidden relative w-full">
+                                            <span class="material-icons text-purple-500">send</span>
+                                            <input type="submit" class="absolute text-transparent cursor-pointer"
+                                                name="send" id="inpsend">
+                                        </div>
+                                    </button>
+                                </div>
+                                <div>
+                                    Porcentaje de compresion <span class="font-bold" id="porcentaje"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </article>
+
+
+</section>
+
+
+<script>
+
+
+    
+    document.querySelector('#formChat')
+        .addEventListener('submit', e => {
+            e.preventDefault();
+            addMessage();
+        })
+
+
+    document.addEventListener("keypress", sendMsg);
+
+    function sendMsg(e) {
+        if (
+            document.querySelector("#msn").value === "" ||
+            document.querySelector("#msn").value
+        ) {
+            return false;
+        }
+        if (e.keyCode === 13) addMessage();
+    }
+
+    const addMessage = () => {
+        //    let dataObj = {
+        //       nombre: document.querySelector("#nb").value,
+        //        msn: document.querySelector("#msn").value,
+        //        color: document.querySelector("#inpcolor").value,
+        //        prueba: { msj: 'holahola', tuvi: 'sale' },
+        //    };
+        let dataObj = {
+            author: {
+                id: document.querySelector("#email").value,
+                nombre: document.querySelector("#nb").value,
+                apellido: document.querySelector("#apellido").value,
+                edad: document.querySelector("#edad").value,
+                alias: document.querySelector("#alias").value,
+                avatar: document.querySelector("#avatar").value,
+                color: document.querySelector("#inpcolor").value
+            },
+            text: document.querySelector("#msn").value
+        };
+        socket.emit("dataMsn", dataObj);
+        document.querySelector("#msn").value = "";
+        document.querySelector("#msn").focus();
+        return false;
+    };
+</script>
