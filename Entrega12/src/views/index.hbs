@@ -1,0 +1,78 @@
+{{#if session}}
+{{> login}}
+
+{{#if logout}}
+    {{> hastaluego user=user}}
+{{/if}}
+{{else}}
+{{> navigate admin=admin arr_prodscart=arr_prodscart}}
+<div class="w-full flex flex-col items-center justify-center px-4 ">
+    {{#if altaProd}}
+    <div class="flex w-full gap-12 flex-col-reverse md:flex-row md:px-0">
+        <div class="w-full md:w-3/6">
+            {{> form}}
+        </div>
+        <div class="w-full md:w-3/6">
+            {{> chat}}
+        </div>
+    </div>
+    <div class="w-full">
+        {{> listprod}}
+    </div>
+    {{else}}
+    {{!-- <div class="w-5/6 px-4 py-4 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" id="list_user"></div>
+    --}}
+    <div id="gridprods"></div>
+
+    {{!-- <div class="w-5/6 px-4 py-4 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {{#each arr_prods}}
+        <div class="card transition-all">
+            <img src="{{this.imageurl}}" alt="">
+            <div class="p-4 flex flex-col gap-4">
+                <div class="flex pb-2 gap-4 w-full justify-between text-center items-center">
+                    <h3 class="text-gray-600 w-full text-base">
+                        <span class="uppercase text-base font-semibold">{{this.nombre}}</span>
+                    </h3>
+                </div>
+                <div class="flex justify-center items-center relative text-center">
+                    <p>
+                        <span class="font-bold text-xl">
+                            $ {{this.precio}}
+                        </span>
+                    </p>
+                </div>
+                <div class="w-full flex items-center justify-center">
+                    {{#if this.check}}
+                    <button class="bg-red-500 whitespace-nowrap uppercase text-sm text-white rounded-sm px-2 py-1"
+                        title="Agregar producto al carrito" onclick="return deleteProd_xcarro({{json this}})">
+                        Eliminar del carrito
+                    </button>
+                    {{else}}
+                    <button class="bg-purple-500 uppercase text-sm text-white rounded-sm px-2 py-1"
+                        title="Agregar producto al carrito" onclick="return addProd_xcarro({{json this}})">
+                        Agregar al carrito
+                    </button>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div> --}}
+    {{/if}}
+
+</div>
+
+{{/if}}
+
+
+<style>
+    .card {
+        border-radius: 10px;
+        position: relative;
+    }
+
+    .card:hover {
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 30%);
+        background: white;
+    }
+</style>
