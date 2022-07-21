@@ -1,0 +1,84 @@
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ecommerce curso back end</title>
+  <script src="https://unpkg.com/flowbite@1.4.5/dist/flowbite.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {} } }
+  </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./index.js"></script>
+  <line rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  </link>
+  <style>
+    body {
+      height: 100vh;
+      background: #f4f4f4;
+    }
+
+    table {
+      width: 100%;
+      border-spacing: 0;
+    }
+
+    thead,
+    tbody,
+    tr,
+    th,
+    td {
+      display: block;
+    }
+
+    thead tr {
+      /* fallback */
+      width: 97%;
+      /* minus scroll bar width */
+      width: calc(100%);
+    }
+
+    tr:after {
+      /* clearing float */
+      content: " ";
+      display: block;
+      visibility: hidden;
+      clear: both;
+    }
+
+    tbody {
+      max-height: 342px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    tbody tr td {
+      min-height: 45px;
+      display: flex;
+      align-items: center;
+    }
+
+    tbody td,
+    thead th {
+      width: 13.30%;
+      min-width: 13.30%;
+      /* 19% is less than (100% / 5 cols) = 20% */
+      float: left;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    {{{body}}}
+  </main>
+</body>
+
+</html>
