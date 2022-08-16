@@ -182,66 +182,103 @@ app.use(sessMiddle);
 //   });
 // });
 
-// server.listen(port, (error) => {
-//   if (error) {
-//     logger.error("Error al iniciar el servidor");
-//     process.exit();
-//   }
-//   // console.table("Server run in http://localhost:" + port);
-// });
+app.get("/info", (req, res) => {
+  logger.info(`${req.method} ${req.url}`);
+  const lista = {
+    ArgumentosEntrada: process.argv.slice(2),
+    SistemaOperativo: process.platform,
+    VersionNode: process.version,
+    MemoriaReservada: process.memoryUsage.rss(),
+    PathEjecucion: process.execPath,
+    ProcessID: process.pid,
+    CarpetaProyecto: process.cwd(),
+    ProcessNumber: numeroCpus,
+  };
+  res.json(lista);
+  res.end();
+});
 
+app.get("/infoGzip", compresion(), (req, res) => {
+  logger.info(`${req.method} ${req.url}`);
+  const lista = {
+    ArgumentosEntrada: process.argv.slice(2),
+    SistemaOperativo: process.platform,
+    VersionNode: process.version,
+    MemoriaReservada: process.memoryUsage.rss(),
+    PathEjecucion: process.execPath,
+    ProcessID: process.pid,
+    CarpetaProyecto: process.cwd(),
+    ProcessNumber: numeroCpus,
+  };
+  res.json(lista);
+  res.end();
+});
 
-if (cluster.isMaster) {
-  for (let i = 0; i < numeroCpus; i++) {
-    cluster.fork();
+app.use(function (req, res) {
+  logger.warn(`${req.method} ${req.url} - RUTA INEXISTENTE`);
+  return res.redirect(301, "/info");
+});
+
+server.listen(port, (error) => {
+  if (error) {
+    logger.error("Error al iniciar el servidor");
+    process.exit();
   }
-  cluster.on("exit", (worker) => {
-    console.log(`Proceso worker con PID ${worker.process.pid} salio`);
-    cluster.fork();
-  });
-} else {
-  app.get("/info", (req, res) => {
-    logger.info(`${req.method} ${req.url}`);
-    const lista = {
-      ArgumentosEntrada: process.argv.slice(2),
-      SistemaOperativo: process.platform,
-      VersionNode: process.version,
-      MemoriaReservada: process.memoryUsage.rss(),
-      PathEjecucion: process.execPath,
-      ProcessID: process.pid,
-      CarpetaProyecto: process.cwd(),
-      ProcessNumber: numeroCpus,
-    };
-    res.json(lista);
-    res.end();
-  });
+  // console.table("Server run in http://localhost:" + port);
+});
 
-  app.get("/infoGzip", compresion(), (req, res) => {
-    logger.info(`${req.method} ${req.url}`);
-    const lista = {
-      ArgumentosEntrada: process.argv.slice(2),
-      SistemaOperativo: process.platform,
-      VersionNode: process.version,
-      MemoriaReservada: process.memoryUsage.rss(),
-      PathEjecucion: process.execPath,
-      ProcessID: process.pid,
-      CarpetaProyecto: process.cwd(),
-      ProcessNumber: numeroCpus,
-    };
-    res.json(lista);
-    res.end();
-  });
 
-  app.use(function (req, res) {
-    logger.warn(`${req.method} ${req.url} - RUTA INEXISTENTE`);
-    return res.redirect(301, "/info");
-  });
-  server.listen(port, (error) => {
-    if (error) {
-      logger.error("Error al iniciar el servidor");
-      process.exit();
-    }
-    // console.table("Server run in http://localhost:" + port);
-  });
-}
+// if (cluster.isMaster) {
+//   for (let i = 0; i < numeroCpus; i++) {
+//     cluster.fork();
+//   }
+//   cluster.on("exit", (worker) => {
+//     console.log(`Proceso worker con PID ${worker.process.pid} salio`);
+//     cluster.fork();
+//   });
+// } else {
+//   app.get("/info", (req, res) => {
+//     logger.info(`${req.method} ${req.url}`);
+//     const lista = {
+//       ArgumentosEntrada: process.argv.slice(2),
+//       SistemaOperativo: process.platform,
+//       VersionNode: process.version,
+//       MemoriaReservada: process.memoryUsage.rss(),
+//       PathEjecucion: process.execPath,
+//       ProcessID: process.pid,
+//       CarpetaProyecto: process.cwd(),
+//       ProcessNumber: numeroCpus,
+//     };
+//     res.json(lista);
+//     res.end();
+//   });
+
+//   app.get("/infoGzip", compresion(), (req, res) => {
+//     logger.info(`${req.method} ${req.url}`);
+//     const lista = {
+//       ArgumentosEntrada: process.argv.slice(2),
+//       SistemaOperativo: process.platform,
+//       VersionNode: process.version,
+//       MemoriaReservada: process.memoryUsage.rss(),
+//       PathEjecucion: process.execPath,
+//       ProcessID: process.pid,
+//       CarpetaProyecto: process.cwd(),
+//       ProcessNumber: numeroCpus,
+//     };
+//     res.json(lista);
+//     res.end();
+//   });
+
+//   app.use(function (req, res) {
+//     logger.warn(`${req.method} ${req.url} - RUTA INEXISTENTE`);
+//     return res.redirect(301, "/info");
+//   });
+//   server.listen(port, (error) => {
+//     if (error) {
+//       logger.error("Error al iniciar el servidor");
+//       process.exit();
+//     }
+//     // console.table("Server run in http://localhost:" + port);
+//   });
+// }
 

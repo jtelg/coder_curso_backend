@@ -1,5 +1,5 @@
 import autocannon from "autocannon";
-import { passThrough } from "stream";
+import passThrough from "stream";
 
 const ejecutar = (url) => {
   const buf = [];
