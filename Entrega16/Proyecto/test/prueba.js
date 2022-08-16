@@ -1,9 +1,9 @@
 import autocannon from "autocannon";
-import passThrough from "stream";
+import stream from "stream";
 
 const ejecutar = (url) => {
   const buf = [];
-  const outputStream = new passThrough();
+  const outputStream = new stream.PassThrough();
 
   const inst = autocannon({
     url,

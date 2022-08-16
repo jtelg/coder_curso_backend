@@ -62,125 +62,125 @@ const sessMiddle = session({
 app.use(cookieParser());
 app.use(sessMiddle);
 
-// import routerProd from "./routes/productos.js";
-// import routerCart from "./routes/carrito.js";
-// import routerSession from "./routes/session.js";
-// import routerRandom from "./routes/randoms.js";
+import routerProd from "./routes/productos.js";
+import routerCart from "./routes/carrito.js";
+import routerSession from "./routes/session.js";
+import routerRandom from "./routes/randoms.js";
 
-// app.use("/productos", routerProd);
-// app.use("/carrito", routerCart);
-// app.use("/session", routerSession);
-// app.use("/randoms", routerRandom);
+app.use("/productos", routerProd);
+app.use("/carrito", routerCart);
+app.use("/session", routerSession);
+app.use("/randoms", routerRandom);
 
-// // Coneccion y configuracion al motor de plantillas handlebars
-// import { engine } from "express-handlebars";
-// app.set("view engine", "hbs");
-// app.set("views", "./src/views");
-// app.engine(
-//   "hbs",
-//   engine({
-//     extname: ".hbs",
-//     defaultLayout: "main.hbs",
-//     LayoutsDir: __dirname + "/views/layouts/",
-//     partialsDir: __dirname + "/views/components/",
-//   })
-// );
-// import Handlebars from "handlebars";
-// // setea handlebars para enviar un objeto como parametro desde html a js
-// Handlebars.registerHelper("json", function (context) {
-//   return JSON.stringify(context);
-// });
+// Coneccion y configuracion al motor de plantillas handlebars
+import { engine } from "express-handlebars";
+app.set("view engine", "hbs");
+app.set("views", "./src/views");
+app.engine(
+  "hbs",
+  engine({
+    extname: ".hbs",
+    defaultLayout: "main.hbs",
+    LayoutsDir: __dirname + "/views/layouts/",
+    partialsDir: __dirname + "/views/components/",
+  })
+);
+import Handlebars from "handlebars";
+// setea handlebars para enviar un objeto como parametro desde html a js
+Handlebars.registerHelper("json", function (context) {
+  return JSON.stringify(context);
+});
 
-// // productos y chats
-// import Contenedor from "./utils/DB_functions.js";
-// const funcProd = new Contenedor("productos", process.env.DATABASE_USE);
-// const funcChat = new Contenedor("mensajes", process.env.DATABASE_USE);
-// const funcCart = new Contenedor("carrito", "JSON");
+// productos y chats
+import Contenedor from "./utils/DB_functions.js";
+const funcProd = new Contenedor("productos", process.env.DATABASE_USE);
+const funcChat = new Contenedor("mensajes", process.env.DATABASE_USE);
+const funcCart = new Contenedor("carrito", "JSON");
 
-// const wrap = (middleware) => (socket, next) =>
-//   middleware(socket.request, {}, next);
+const wrap = (middleware) => (socket, next) =>
+  middleware(socket.request, {}, next);
 
-// io.use(wrap(sessMiddle));
+io.use(wrap(sessMiddle));
 
-// // only allow authenticated users
-// io.use((socket, next) => {
-//   const session = socket.request.session;
-//   if (session) {
-//     next();
-//   } else {
-//     next(new Error("unauthorized"));
-//   }
-// });
+// only allow authenticated users
+io.use((socket, next) => {
+  const session = socket.request.session;
+  if (session) {
+    next();
+  } else {
+    next(new Error("unauthorized"));
+  }
+});
 
-// const arr_prods = await funcProd.getAll();
-// const arr_prodscart = await funcCart.getProds_xcarro(601);
-// if (arr_prodscart.length > 0) {
-//   arr_prods.forEach((prod) => {
-//     prod.check = false;
-//     if (arr_prodscart.find((e) => e.id === prod.id)) {
-//       prod.check = true;
-//     }
-//   });
-// }
+const arr_prods = await funcProd.getAll();
+const arr_prodscart = await funcCart.getProds_xcarro(601);
+if (arr_prodscart.length > 0) {
+  arr_prods.forEach((prod) => {
+    prod.check = false;
+    if (arr_prodscart.find((e) => e.id === prod.id)) {
+      prod.check = true;
+    }
+  });
+}
 
-// //Coneccion Socket
-// io.on("connection", async (socket) => {
-//   logger.info(`SOCKET CONECTION`);
-//   // Funciones del chat de administradores
-//   socket.emit("mensage_back", await funcChat.getAll());
-//   socket.on("dataMsn", async (data) => {
-//     const session = socket.request.session;
-//     if (session && new Date(session?.cookie.expires) >= new Date()) {
-//       logger.info(`POST MESSAGE IN SOCKET`);
-//       await funcChat.save(data);
-//       io.sockets.emit("mensage_back", await funcChat.getAll());
-//     } else {
-//       logger.warn("POST MESSAGE - Tiempo de sesion expirado");
-//       io.sockets.emit("mensage_back", { error: "Tiempo de sesion expirado" });
-//     }
-//   });
-//   socket.emit("prodsHome_back", arr_prods);
-// });
+//Coneccion Socket
+io.on("connection", async (socket) => {
+  logger.info(`SOCKET CONECTION`);
+  // Funciones del chat de administradores
+  socket.emit("mensage_back", await funcChat.getAll());
+  socket.on("dataMsn", async (data) => {
+    const session = socket.request.session;
+    if (session && new Date(session?.cookie.expires) >= new Date()) {
+      logger.info(`POST MESSAGE IN SOCKET`);
+      await funcChat.save(data);
+      io.sockets.emit("mensage_back", await funcChat.getAll());
+    } else {
+      logger.warn("POST MESSAGE - Tiempo de sesion expirado");
+      io.sockets.emit("mensage_back", { error: "Tiempo de sesion expirado" });
+    }
+  });
+  socket.emit("prodsHome_back", arr_prods);
+});
 
-// const AuthUser = (req, res, next) => {
-//   if (dataUser(req)) return next();
-//   logger.warn("Permiso denegado, redireccionando");
-//   return res.redirect(301, "/session/login");
-// };
+const AuthUser = (req, res, next) => {
+  if (dataUser(req)) return next();
+  logger.warn("Permiso denegado, redireccionando");
+  return res.redirect(301, "/session/login");
+};
 
-// const dataUser = (req) => {
-//   if (
-//     req.session?.passport?.user &&
-//     req.session?.passport?.user !== "" &&
-//     new Date(req.session?.cookie.expires) >= new Date()
-//   )
-//     return true;
-//   logger.warn("Permiso denegado, redireccionando");
-//   return false;
-// };
+const dataUser = (req) => {
+  if (
+    req.session?.passport?.user &&
+    req.session?.passport?.user !== "" &&
+    new Date(req.session?.cookie.expires) >= new Date()
+  )
+    return true;
+  logger.warn("Permiso denegado, redireccionando");
+  return false;
+};
 
-// const dataAdmin = (req) => {
-//   if (
-//     req.session?.passport?.user?.toLowerCase() === "admin" ||
-//     req.session?.admin ||
-//     req.query.admin
-//   ) {
-//     return true;
-//   }
-//   logger.warn("Permiso denegado, redireccionando");
-//   return false;
-// };
+const dataAdmin = (req) => {
+  if (
+    req.session?.passport?.user?.toLowerCase() === "admin" ||
+    req.session?.admin ||
+    req.query.admin
+  ) {
+    return true;
+  }
+  logger.warn("Permiso denegado, redireccionando");
+  return false;
+};
 
-// app.get("/", AuthUser, async (req, res) => {
-//   logger.info(`${req.method} ${req.url}`)
-//   const user = { nombre: req.session?.passport?.user, admin: dataAdmin(req) };
-//   res.render("index", {
-//     altaProd: false,
-//     arr_prods,
-//     arr_prodscart,
-//     user,
-//   });
-// });
+app.get("/", AuthUser, async (req, res) => {
+  logger.info(`${req.method} ${req.url}`)
+  const user = { nombre: req.session?.passport?.user, admin: dataAdmin(req) };
+  res.render("index", {
+    altaProd: false,
+    arr_prods,
+    arr_prodscart,
+    user,
+  });
+});
 
 app.get("/info", (req, res) => {
   logger.info(`${req.method} ${req.url}`);
