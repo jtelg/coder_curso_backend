@@ -1,3 +1,0 @@
-2022/08/09 13:22:12 [emerg] 8176#4400: unknown "exa0" variable
-2022/08/09 13:42:10 [error] 13180#49880: *1 CreateFile() "C:\Users\Julian\Desktop\Programacion\PRACTICOS\coder_curso_backend\Entrega15\nginx/html/favicon.ico" failed (2: El sistema no puede encontrar el archivo especificado), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
-2022/08/09 16:08:29 [error] 13180#49880: *12 CreateFile() "C:\Users\Julian\Desktop\Programacion\PRACTICOS\coder_curso_backend\Entrega15\nginx/html/favicon.ico" failed (2: El sistema no puede encontrar el archivo especificado), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "127.0.0.1", referrer: "http://127.0.0.1/"
