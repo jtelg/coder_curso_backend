@@ -11,8 +11,9 @@ import dotenv from "dotenv";
 dotenv.config({ path: __dirname + "/../../.env" });
 
 import Contenedor from "../utils/DB/DB_functions.js";
+import sendMail from "../utils/mailer/sendMail.js";
 const funcCart = new Contenedor("carrito", process.env.DATABASE_USE);
-const funcProd = new Contenedor("productos", process.env.DATABASE_USE);
+const funcUser = new Contenedor("usuarios", process.env.DATABASE_USE);
 const dataUser = (req, res, next) => {
   if (
     req.session?.passport?.user &&
@@ -25,18 +26,8 @@ const dataUser = (req, res, next) => {
 };
 
 router.get("/", async (req, res, next) => {
-  const arr_prods = await funcProd.getAll();
   const carro =
     (await funcCart.getxCampo("iduser", req.session.iduser)) || false;
-
-  if (carro) {
-    arr_prods.forEach((prod) => {
-      prod.check = false;
-      if (carro?.productos?.find((e) => e.id === prod.id)) {
-        prod.check = true;
-      }
-    });
-  }
   const user = {
     nombre: req.session?.passport?.user,
     admin: req.session.admin,
@@ -45,7 +36,7 @@ router.get("/", async (req, res, next) => {
   return res.render("index", {
     altaProd: false,
     user,
-    arr_prods,
+    prodsCarro: carro.productos,
     carro,
     carroView: true,
   });
@@ -67,9 +58,21 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// vacia carrito
-router.delete("/:id", (req, res) => {
-  res.render("index");
+router.put("/", dataUser, async (req, res, next) => {
+  try {
+    const ret = await funcCart.updatexCampo(
+      req.body.id,
+      req.body.key,
+      req.body.value
+    );
+    req.body.user = await funcUser.getxCampo('email', req.body.user.nombre)
+    sendMail.nuevaCompra(req);
+    res.end();
+  } catch (error) {
+    const errorprod = new Error("Error al cargar el producto" + error);
+    error.httpStatusCode = 400;
+    return next(errorprod);
+  }
 });
 
 router.delete("/:id", (req, res) => {

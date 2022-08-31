@@ -51,7 +51,7 @@ const sessMiddle = session({
     path: "/",
     httpOnly: true,
     secure: false,
-    maxAge: 600000,
+    maxAge: 600000000,
   },
   secret: "usersession",
   resave: false,
@@ -123,17 +123,17 @@ io.use((socket, next) => {
 
 //Coneccion Socket
 io.on("connection", async (socket) => {
-  logger.info(`SET > Conexion con io socket correcta`);
+  logger.info(`SET > Conexion con io socket correcta - server.js:126`);
   // Funciones del chat de administradores
   socket.emit("mensage_back", await funcChat.getAll());
   socket.on("dataMsn", async (data) => {
     const session = socket.request.session;
     if (session && new Date(session?.cookie.expires) >= new Date()) {
-      logger.info(`POST > Nuevo mensaje registrado`);
+      logger.info(`POST > Nuevo mensaje registrado - server.js:132`);
       await funcChat.save(data);
       io.sockets.emit("mensage_back", await funcChat.getAll());
     } else {
-      logger.warn("REDIRECT > Tiempo de sesion expirado");
+      logger.warn("REDIRECT > Tiempo de sesion expirado - server.js:136");
       io.sockets.emit("mensage_back", { error: "Tiempo de sesion expirado" });
     }
   });
@@ -142,7 +142,7 @@ io.on("connection", async (socket) => {
 
 const AuthUser = (req, res, next) => {
   if (dataUser(req)) return next();
-  logger.warn("REDIRECT > Permiso denegado, redireccionando");
+  logger.warn("REDIRECT > Permiso denegado, redireccionando - server.js:145");
   return res.redirect(301, "/session/login");
 };
 
@@ -153,7 +153,7 @@ const dataUser = (req) => {
     new Date(req.session?.cookie.expires) >= new Date()
   )
     return true;
-  logger.warn("REDIRECT > Permiso denegado, redireccionando");
+  logger.warn("REDIRECT > Permiso denegado, redireccionando - server.js:156");
   return false;
 };
 
@@ -165,7 +165,7 @@ const dataAdmin = (req) => {
   ) {
     return true;
   }
-  logger.warn("REDIRECT > Permiso denegado, redireccionando");
+  logger.warn("REDIRECT > Permiso denegado, redireccionando - server.js:168");
   return false;
 };
 
@@ -211,21 +211,21 @@ app.get("/info", (req, res) => {
 });
 
 app.use(function (req, res) {
-  logger.info(`${req.method} > ${req.url}`);
+  logger.info(`${req.method} > ${req.url} - server.js:214`);
   return res.end();
 });
 
 app.use(function (req, res) {
-  logger.warn(`REDIRECT > ${req.method} ${req.url} - RUTA INEXISTENTE`);
+  logger.warn(`REDIRECT > ${req.method} ${req.url} - RUTA INEXISTENTE - server.js:219`);
   return res.redirect(301, "/");
 });
 
 server.listen(port, (error) => {
   if (error) {
-    logger.error("ERROR > Error al iniciar el servidor");
+    logger.error("ERROR > Error al iniciar el servidor - server.js:225");
     process.exit();
   }
-  logger.info("SET > Server run in http://localhost:" + port);
+  logger.info("SET > Server run in http://localhost:" + port + ' - server.js:228');
 });
 
 // if (cluster.isMaster) {

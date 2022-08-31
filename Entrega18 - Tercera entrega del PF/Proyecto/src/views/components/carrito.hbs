@@ -1,0 +1,80 @@
+<div class="">
+    <div class="pl-4 w-full flex h-32 bg-purple-500 py-4 items-start">
+        <div class="flex items-center gap-4 text-white">
+            <a href="/" class="flex">
+                <span class="material-icons-outlined text-3xl">
+                    arrow_back
+                </span>
+            </a>
+            <span class="uppercase tracking-wide text-base">Mi pedido</span>
+        </div>
+    </div>
+
+    <section class="flex justify-center pt-4 -mt-16">
+        <div class="max-w-screen-md w-11/12 sm:w-8/12 lg:w-6/12 rounded-md">
+            <ul class="flex flex-col gap-4 rounded-md h-[72vh]">
+                {{#each prodsCarro}}
+                <li class="flex rounded-md gap-4 items-center w-full pr-2 shadow-md bg-white">
+                    <div class="h-20 w-24 min-w-[6rem] relative flex">
+                        <img src="/image/users/jtelgarecz@gmail.com.jpg" alt="" class="rounded-r-md object-cover" />
+                    </div>
+                    <div class="w-full">
+                        <div class="flex justify-between items-center">
+                            <span class="uppercase font-bold text-sm">
+                                <b>{{this.nombre}}</b>
+                            </span>
+                            {{!-- <span class="material-icons-outlined text-2xl cursor-pointer text-red-400">
+                                close
+                            </span> --}}
+                        </div>
+                        <div class="overflow-y-auto leading-3 h-[32px]">
+                            <span class="text-xs overflow-hidden sm:max-w-[15rem] relative">
+                                {{this.descripcion}}
+                            </span>
+                        </div>
+                        <div class="flex w-full justify-between items-center">
+                            <span class="w-full justify-end flex font-bold">
+                                <b>$ {{this.precio}}</b>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+            <button class="bg-purple-500 uppercase text-sm text-white rounded-sm px-2 py-2 w-full"
+                title="Agregar producto al carrito" onclick="return iniciarCompra({{json carro}})">
+                Confirmar compra
+            </button>
+        </div>
+    </section>
+</div>
+
+<script>
+    const iniciarCompra = async (carro) => {
+        const user = {{{json user}}};
+        const objCarro = {
+            key: 'estado',
+            value: 'Finalizado',
+            id: carro.id,
+            user,
+            carro
+        };
+        const url = `/carrito`;
+        const options = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(objCarro),
+        };
+        const re = await fetch(url, options);
+        if (re.ok) {
+            if (re.url.split("?Mesage=").length > 1) {
+                const corte = re.url.split("/session/login/")[1];
+                const path = `/session/login/${corte}`;
+                goLink(path);
+            }
+            window.location = "/";
+        }
+    };
+</script>

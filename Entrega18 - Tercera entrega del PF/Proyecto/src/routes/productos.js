@@ -1,5 +1,4 @@
 import express from "express";
-import multer from "multer";
 import Contenedor from "../utils/DB/DB_functions.js";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -14,15 +13,6 @@ const router = Router();
 
 import logger from '../utils/logger.js'
 
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "public/image");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, `${Date.now()}-${file.originalname}`);
-//   },
-// });
-// const upload = multer({ storage: storage });
 
 const AuthAdmin = (req, res, next) => {
   const error = ctrlUser(req);

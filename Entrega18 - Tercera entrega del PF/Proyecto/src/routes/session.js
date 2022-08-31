@@ -1,7 +1,7 @@
 import express from "express";
 const { Router } = express;
 const router = Router();
-import multer from 'multer';
+import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
@@ -11,8 +11,12 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: __dirname + "/../../.env" });
 import passport from "../utils/passport.js";
 import logger from "../utils/logger.js";
+import sendMail from "../utils/mailer/sendMail.js";
 router.use(passport.initialize());
 router.use(passport.session());
+
+import Contenedor from "../utils/DB/DB_functions.js";
+const funcUser = new Contenedor("usuarios", process.env.DATABASE_USE);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -36,27 +40,33 @@ const dataAdmin = (req) => {
   return false;
 };
 
+router.get("/perfil", async (req, res, next) => {
+  
+  const user = await funcUser.getxCampo('email', req.session.user)
+  return res.render("index", {
+    altaProd: false,
+    perfilUser: true,
+    user
+  });
+});
+
 router.get("/login", async (req, res) => {
   res.render("index", {
     session: true,
   });
 });
 
-router.post(
-  "/login",
-  passport.authenticate("auth"),
-  async (req, res) => {
-    req.session.user = req.user?.email;
-    req.session.password = req.user?.password;
-    req.session.iduser = req.user?.id;
-    req.session.admin = false;
-    if (dataAdmin(req)) {
-      req.session.admin = true;
-    }
-    res.redirect("/");
-    // res.send({ data: "save" });
+router.post("/login", passport.authenticate("auth"), async (req, res) => {
+  req.session.user = req.user?.email;
+  req.session.password = req.user?.password;
+  req.session.iduser = req.user?.id;
+  req.session.admin = false;
+  if (dataAdmin(req)) {
+    req.session.admin = true;
   }
-);
+  res.redirect("/");
+  // res.send({ data: "save" });
+});
 
 router.get("/logout", (req, res) => {
   const user = {
@@ -93,13 +103,17 @@ router.post(
     req.session.user = req.user?.email;
     req.session.password = req.user?.password;
     req.session.admin = false;
+    req.session.iduser = req.user?.id;
     if (dataAdmin(req)) {
       req.session.admin = true;
     }
     res.redirect("/");
+    sendMail.nuevoRegistro(req);
     return res.end();
   }
 );
+
+
 
 router.use((error, req, res, next) => {
   logger.warn(`redirect "/session/login/?Mesage=" + error.message`);

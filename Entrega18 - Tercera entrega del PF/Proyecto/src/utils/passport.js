@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from "fs";
 import path from "path";
 import bcrypt from "bcrypt";
 import passport from "passport";
@@ -6,7 +6,7 @@ import passportLocal from "passport-local";
 const LocalStrategy = passportLocal.Strategy;
 
 import Contenedor from "./DB/DB_functions.js";
-import logger from './logger.js';
+import logger from "./logger.js";
 const funcUser = new Contenedor("usuarios", process.env.DATABASE_USE);
 
 passport.use(
@@ -15,14 +15,14 @@ passport.use(
     {
       usernameField: "user",
       passwordField: "password",
-      passReqToCallback: true
+      passReqToCallback: true,
     },
     async function (req, user, password, done) {
       const userRE = await funcUser.getxCampo("email", user);
       const file = req.file;
       if (userRE) {
         // elimina la imagen en caso de que se haya cargado
-        if(file) fs.unlinkSync(file.path);
+        if (file) fs.unlinkSync(file.path);
         return done(new Error("Usuario registrado"));
       }
       const passHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
@@ -33,21 +33,20 @@ passport.use(
           nombre: req.body.nombre,
           direccion: req.body.direccion,
           edad: req.body.edad,
-          telefono: req.body.telefono
+          telefono: req.body.telefono,
         };
         const id = await funcUser.save(objUser);
-        const newPath = `public/image/users/${objUser.email}.jpg`;
-        const oldPath = file.path; 
-        
-        if(file) fs.renameSync(oldPath, newPath);
+        if (file) {
+          const newPath = `public/image/users/${objUser.email}.jpg`;
+          const oldPath = file.path;
+          fs.renameSync(oldPath, newPath);
+        }
         return done(null, objUser);
       } catch (error) {
-        logger.error('ERROR > Error al agregar un usuario');
-        if(file) fs.unlinkSync(file.path);
+        logger.error("ERROR > Error al agregar un usuario");
+        if (file) fs.unlinkSync(file.path);
         return done(new Error("Error al registrar"));
       }
-
-     
     }
   )
 );
@@ -61,7 +60,8 @@ passport.use(
     },
     async function (user, password, done) {
       const userRE = await funcUser.getxCampo("email", user);
-      if (!userRE || !bcrypt.compareSync(password, userRE.password)) return done(new Error("Usuario o password incorrecto"));
+      if (!userRE || !bcrypt.compareSync(password, userRE.password))
+        return done(new Error("Usuario o password incorrecto"));
       return done(null, userRE);
     }
   )

@@ -150,11 +150,16 @@ class ContenedorMongoDb {
         break;
     }
     this.coleccion = mongoose.model(nombreColeccion, useSchema);
+    this.nombreColeccion = nombreColeccion;
   }
 
   async listar(id) {
     try {
-      const docs = await this.coleccion.find({ _id: id }, { __v: 0 });
+      let filter = { _id: id };
+      if (this.nombreColeccion === "carritos") {
+        filter = { _id: id, estado: "Abierto" };
+      }
+      const docs = await this.coleccion.find(filter, { __v: 0 });
       if (docs.length == 0) {
         throw new Error("Error al listar por id: no encontrado");
       } else {
@@ -168,7 +173,11 @@ class ContenedorMongoDb {
 
   async listar_xcampo(name, value) {
     try {
-      const docs = await this.coleccion.find({ [name]: value }, { __v: 0 });
+      let filter = { [name]: value };
+      if (this.nombreColeccion === "carrito") {
+        filter = { [name]: value, estado: "Abierto" };
+      }
+      const docs = await this.coleccion.find(filter, { __v: 0 });
       if (docs.length == 0) {
         return false;
       } else {
