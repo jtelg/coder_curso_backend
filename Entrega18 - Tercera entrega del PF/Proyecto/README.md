@@ -9,8 +9,8 @@ Mapa de rutas:
 datos de administrador:
 - usuario: admin
 - password: admin
-
-La aplicacion se puede correr desde el puerto 8080 al puerto 8085.
+s
+Para ver editar y agregar un nuevo producto se debe ingresar como administrador u envier la veriable de admin en la URL.
 
 
 Para inicializar modo FORK o modo CLUSTER en nodemoon se puede utilizar la variable MODE_INIT creada en el archivo.env
@@ -18,17 +18,6 @@ Para inicializar modo FORK o modo CLUSTER en nodemoon se puede utilizar la varia
 MODE_INIT:
  - CLUSTER
  - FORK
-
-Como asi tambien se puede utilizar pm2 y forever.
-
-Comandos de ejemplo utilizados en pm2:
-
-- nodemon src/index.js
-- pm2 start src/index.js --name="Server Fork" --watch -- 8081
-- pm2 start src/index.js --name="Server Cluster" -i max --watch -- 8082
-- pm2 start src/index.js --name="Server Fork Dos" --watch -- 8083
-- forever start src/index.js 8084
-- forever start src/index.js 8085
 
 
 

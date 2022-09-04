@@ -12,6 +12,7 @@ dotenv.config({ path: __dirname + "/../../.env" });
 
 import Contenedor from "../utils/DB/DB_functions.js";
 import sendMail from "../utils/mailer/sendMail.js";
+import twiClient from "../utils/mailer/twilio/twilio.js";
 const funcCart = new Contenedor("carrito", process.env.DATABASE_USE);
 const funcUser = new Contenedor("usuarios", process.env.DATABASE_USE);
 const dataUser = (req, res, next) => {
@@ -65,8 +66,16 @@ router.put("/", dataUser, async (req, res, next) => {
       req.body.key,
       req.body.value
     );
-    req.body.user = await funcUser.getxCampo('email', req.body.user.nombre)
+    req.body.user = await funcUser.getxCampo("email", req.body.user.nombre);
     sendMail.nuevaCompra(req);
+    twiClient.sendMessage(
+      "Su pedido fue recibido y se encuentra en proceso ¡Gracias!",
+      req.body.user.telefono
+    );
+    twiClient.sendWhatsapp(
+      `Nuevo pedido de ${req.body.user.nombre} - ${req.body.user.email}`,
+      req.body.user.telefono
+    );
     res.end();
   } catch (error) {
     const errorprod = new Error("Error al cargar el producto" + error);

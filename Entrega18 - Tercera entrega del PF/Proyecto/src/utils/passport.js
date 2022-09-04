@@ -43,7 +43,7 @@ passport.use(
         }
         return done(null, objUser);
       } catch (error) {
-        logger.error("ERROR > Error al agregar un usuario");
+        logger.error("ERROR > Error al agregar un usuario - passport.js:46");
         if (file) fs.unlinkSync(file.path);
         return done(new Error("Error al registrar"));
       }
