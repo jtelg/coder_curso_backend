@@ -49,8 +49,27 @@
     </section>
 </div>
 
+<div class="min-w-screen fixed min-h-screen w-full top-0 hidden left-0 justify-center items-center" id="modalcompra">
+    <div class="min-w-screen min-h-screen bg-black opacity-60 -z-10 w-full fixed  top-0 left-0"></div>
+    <div
+        class="flex flex-col gap-8 items-center bg-white shadow-md py-10 px-16 rounded-3xl w-50 max-w-md z-10 text-center">
+        <h3 class="flex items-center gap-2 flex-col"> <span
+                class="text-center uppercase text-xl text-gray-600 font-bold">¡Gracias por su compra!</span></h3>
+        <div>
+            <span class="animate-spin material-icons-outlined text-purple-600" style="font-size: 65px !important">
+                autorenew
+            </span>
+        </div>
+        <h3 class="text-center uppercase text-base text-gray-600 font-bold">
+            Redirigiendo al inicio
+        </h3>
+    </div>
+</div>
+
 <script>
-    const iniciarCompra = async (carro) => {
+       const iniciarCompra = async (carro) => {
+        const modal = document.getElementById('modalcompra');
+        modal.style.display = 'flex';
         const user = {{{json user}}};
         const objCarro = {
             key: 'estado',
@@ -74,7 +93,9 @@
                 const path = `/session/login/${corte}`;
                 goLink(path);
             }
+            modal.style.display = 'hidden';
             window.location = "/";
         }
+        
     };
 </script>

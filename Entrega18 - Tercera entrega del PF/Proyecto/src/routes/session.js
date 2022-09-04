@@ -17,6 +17,7 @@ router.use(passport.session());
 
 import Contenedor from "../utils/DB/DB_functions.js";
 const funcUser = new Contenedor("usuarios", process.env.DATABASE_USE);
+const funcCart = new Contenedor("carrito", process.env.DATABASE_USE);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -41,12 +42,16 @@ const dataAdmin = (req) => {
 };
 
 router.get("/perfil", async (req, res, next) => {
-  
-  const user = await funcUser.getxCampo('email', req.session.user)
+  const carro =
+    (await funcCart.getxCampo("iduser", req.session.iduser)) || false;
+  const user = await funcUser.getxCampo("email", req.session.user);
+  user.nombreReal = user.nombre;
+  user.nombre = user.email;
   return res.render("index", {
     altaProd: false,
     perfilUser: true,
-    user
+    user,
+    carro,
   });
 });
 
@@ -113,10 +118,10 @@ router.post(
   }
 );
 
-
-
 router.use((error, req, res, next) => {
-  logger.warn(`redirect "/session/login/?Mesage=" + error.message`);
+  logger.warn(
+    `REDIRECT > "/session/login/?Mesage=" ${error.message} - session.js:119`
+  );
   res.redirect("/session/login/?Mesage=" + error.message);
 });
 

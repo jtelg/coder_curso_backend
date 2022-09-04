@@ -178,7 +178,7 @@ class Contenedor {
     }
   }
   async getUserLogin(email, password) {
-    logger.info(`GET > user login (${this._DB})`);
+    logger.info(`GET > user login (${this._DB})  - DB_functions.js:181`);
     try {
       switch (this._DB) {
         case "SqliteDB":
@@ -237,7 +237,7 @@ class Contenedor {
   }
 
   escribirArchivo(dato) {
-    logger.info(`Escribir archivo (${this._DB})`);
+    logger.info(`Escribir archivo (${this._DB}) - DB_functions.js:240`);
     try {
       dato = dato ? JSON.stringify(dato) : "";
       try {
@@ -269,7 +269,7 @@ class Contenedor {
   // }
   async getProds_xcarro(idcarro) {
     try {
-      logger.info(`GET x carro en ${this.tablename} (${this._DB})`);
+      logger.info(`GET > x carro en ${this.tablename} (${this._DB}) - DB_functions.js:272`);
       const list_carros = await this.getAll();
       let obj_carro = {
         productos: [],
@@ -286,7 +286,7 @@ class Contenedor {
     }
   }
   async deleteProd_xcarro(idcarro, id_prod) {
-    logger.info(`DETELE PROD x carro en ${this.tablename} (${this._DB})`);
+    logger.info(`DETELE > PROD x carro en ${this.tablename} (${this._DB}) - DB_functions.js:289`);
     try {
       const list_carros = await this.getAll();
       const obj_carro = list_carros.find(
@@ -298,7 +298,7 @@ class Contenedor {
       this.escribirArchivo(list_carros);
     } catch (error) {
       logger.error(
-        `DETELE PROD x carro ${this.tablename} (${this._DB}) - ${error}`
+        `DETELE > PROD x carro ${this.tablename} (${this._DB}) - ${error} - DB_functions.js:301`
       );
     }
   }

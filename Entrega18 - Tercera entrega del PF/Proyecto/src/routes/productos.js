@@ -17,7 +17,7 @@ import logger from '../utils/logger.js'
 const AuthAdmin = (req, res, next) => {
   const error = ctrlUser(req);
   if (error === true) return next();
-  logger.warn("Permiso denegado, redireccionando " + error);
+  logger.warn("WARN > Permiso denegado, redireccionando - producto.js:20");
   return res.redirect("/session/login/?Mesage=" + error);
 };
 
@@ -36,7 +36,7 @@ const ctrlUser = (req) => {
   } else {
     error = "Tiempo de sesion expirado";
   }
-  logger.warn(error);
+  logger.error('ERROR > ' + error + ' - producto.js:20');
   return error;
 };
 
