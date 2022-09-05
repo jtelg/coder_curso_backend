@@ -1,0 +1,86 @@
+<section class="formulario w-full flex flex-col gap-2 mt-2 justify-center items-center">
+    <article>
+        <h1 class="w-full uppercase font-bold text-xl text-purple-600">Chatea con los administradores</h1>
+    </article>
+    <article class="w-full  mx-4 md:mx-0 md:mr-8">
+        <form id="formChat" class="m-0">
+            <div class="w-full space-y-8 px-10 py-6 bg-white rounded-xl shadow-lg z-10">
+                <div class="grid  gap-8 grid-cols-1">
+                    <div class="flex flex-col ">
+                        <div class="mt-5">
+                            <div class="form">
+                                <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                                    <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                                        <div class="mb-3 space-y-2 w-full text-xs">
+                                            <label class="font-semibold text-gray-600 py-2">Tu nombre <abbr
+                                                    title="required">*</abbr></label>
+                                            <input type="text" placeholder="Juan33" id="nb" required="required"
+                                                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" />
+                                        </div>
+                                        <div class="mb-3 space-y-2 w-1/6 text-xs"
+                                            title="Seleccione un color para su nombre">
+                                            <label class="font-semibold text-gray-600 py-2">Color</label>
+                                            <input type="color" placeholder="Juan33" id="inpcolor"
+                                                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 space-y-2 w-full text-xs">
+                                    <div id="caja" class="min-h-[19.3rem] relative px-4"></div>
+                                </div>
+                                <div class="mb-3 w-full flex text-xs">
+                                    <input type="text" placeholder="Escribe tu mensaje" id="msn" required="required"
+                                        class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" />
+                                    <button
+                                        class="relative flex overflow-hidden items-center justify-center rounded-full transform transition-all duration-200 w-1/6"
+                                        type="submit">
+                                        <div
+                                            class="flex gap-4 flex-col justify-center items-center transform transition-all duration-300 origin-center overflow-hidden relative w-full">
+                                            <span class="material-icons text-purple-500">send</span>
+                                            <input type="submit" class="absolute text-transparent cursor-pointer"
+                                                name="send" id="inpsend">
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </article>
+
+
+</section>
+
+
+<script>
+    document.querySelector('#formChat')
+        .addEventListener('submit', e => {
+            e.preventDefault();
+            addMessage();
+        })
+
+    function sendMsg(e) {
+        if (
+            document.querySelector("#msn").value === "" ||
+            document.querySelector("#msn").value
+        ) {
+            return false;
+        }
+        if (e.keyCode === 13) addMessage();
+    }
+
+    const addMessage = () => {
+        let dataObj = {
+            nombre: document.querySelector("#nb").value,
+            msn: document.querySelector("#msn").value,
+            color: document.querySelector("#inpcolor").value,
+        };
+        socket.emit("dataMsn", dataObj);
+        document.querySelector("#msn").value = "";
+        document.querySelector("#msn").focus();
+        return false;
+    };
+
+</script>

@@ -1,0 +1,75 @@
+<div class="">
+    <div class="pl-4 w-full flex h-32 bg-purple-500 py-4 items-start">
+        <div class="flex items-center gap-4 text-white">
+            <a href="/" class="flex">
+                <span class="material-icons-outlined text-3xl">
+                    arrow_back
+                </span>
+            </a>
+            <span class="uppercase tracking-wide text-base">Mi perfil</span>
+        </div>
+    </div>
+
+    <section class="flex justify-center items-center pt-4 flex-col -mt-20">
+        <div class="pb-8">
+            <img src="/image/users/{{user.email}}.jpg" class="rounded-full w-[160px] h-[160px] object-cover" alt="">
+        </div>
+        <div class="max-w-screen-md w-11/12 sm:w-8/12 lg:w-6/12 rounded-md">
+            <form class="flex flex-col items-center gap-4 rounded-md">
+                <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-lg">
+                    <div class="space-y-4">
+                        <div class="block sm:flex gap-4">
+                            <div>
+                                <div>
+                                    <label for="user" class="block mb-1 text-gray-600 font-semibold">
+                                        Email
+                                    </label>
+                                    <input class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" type="text"
+                                        name="user" id="user" value="{{user.email}}"  required="required" readonly/>
+                                </div>
+                                <div>
+                                    <label for="email" class="block mb-1 text-gray-600 font-semibold">
+                                        Password
+                                    </label>
+                                    <input class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" type="text"
+                                        name="password" id="password" value="{{user.password}}" required="required" readonly/>
+                                </div>
+                                <div>
+                                    <label for="nombre" class="block mb-1 text-gray-600 font-semibold">
+                                        Nombre
+                                    </label>
+                                    <input class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" type="text"
+                                        name="nombre" id="nombre" value="{{user.nombre}}" required="required" readonly/>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label for="direccion" class="block mb-1 text-gray-600 font-semibold">
+                                        Direccion
+                                    </label>
+                                    <input class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" type="text"
+                                        name="direccion" id="direccion" value="{{user.direccion}}" required="required" readonly/>
+                                </div>
+                                <div>
+                                    <label for="edad" class="block mb-1 text-gray-600 font-semibold">
+                                        Edad
+                                    </label>
+                                    <input class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" type="text"
+                                        name="edad" id="edad" value="{{user.edad}}" required="required" readonly />
+                                </div>
+                                <div>
+                                    <label for="telefono" class="block mb-1 text-gray-600 font-semibold">
+                                        Numero de telefono
+                                    </label>
+                                    <input class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" type="text"
+                                        name="telefono" id="telefono" value="{{user.telefono}}" required="required" readonly />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
