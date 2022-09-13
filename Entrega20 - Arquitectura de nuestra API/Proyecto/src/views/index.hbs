@@ -1,0 +1,38 @@
+{{#if session}}
+{{#if register}}
+{{> register}}
+{{else}}
+{{> login}}
+{{/if}}
+{{#if logout}}
+{{> hastaluego user=user}}
+{{/if}}
+{{else}}
+{{> navigate admin=admin carro=carro}}
+{{#if carroView}}
+{{> carrito user=user carro=carro prodsCarro=prodsCarro}}
+{{else}}
+{{#if perfilUser}}
+{{> perfil user=user}}
+{{else}}
+<div class="w-full flex flex-col items-center justify-center px-4 ">
+    {{#if altaProd}}
+    <div class="flex w-full gap-12 flex-col-reverse md:flex-row md:px-0">
+        <div class="w-full md:w-3/6">
+            {{> form}}
+        </div>
+        <div class="w-full md:w-3/6">
+            {{> chat}}
+        </div>
+    </div>
+    <div class="w-full">
+        {{> listprod}}
+    </div>
+    {{else}}
+    {{> catalogo arr_prods=arr_prods user=user carro=carro}}
+    {{/if}}
+
+</div>
+{{/if}}
+{{/if}}
+{{/if}}
