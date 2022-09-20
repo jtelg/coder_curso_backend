@@ -25,10 +25,9 @@ const modelsCarrito = {
     return { resp };
   },
   deleteCart: async (req) => {
-    const id = req.params.id;
+    const id = +req.params.id;
     if (id) {
-      funcCart.deleteById(id);
-      return true;
+      return funcCart.deleteById(id);
     }
     return false;
   },

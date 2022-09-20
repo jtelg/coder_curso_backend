@@ -33,7 +33,7 @@ const ctrlProductos = {
     modelProds.updProduct(req);
     res.send("Producto Modificado");
   },
-  getProductxID: async (req) => {
+  getProductxID: async (req, res) => {
     const { arr } = await modelProds.getProductxID(req);
     if (arr) {
       res.send({ arr });

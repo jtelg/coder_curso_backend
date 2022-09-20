@@ -261,10 +261,10 @@ class ContenedorMongoDb {
     try {
       const { n, nDeleted } = await this.coleccion.deleteOne({ _id: id });
       if (n == 0 || nDeleted == 0) {
-        throw new Error("Error al borrar: no encontrado");
+        return ("Error al borrar: no encontrado");
       }
     } catch (error) {
-      throw new Error(`Error al borrar: ${error}`);
+      return (`Error al borrar: ${error}`);
     }
   }
 

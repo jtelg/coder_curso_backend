@@ -22,6 +22,7 @@ const upload = multer({ storage: storage });
 
 // set Perfil page
 router.get("/perfil", async (req, res) => ctrlSession.setPerfilPage(req, res));
+router.get("/perfil/:id", async (req, res) => ctrlSession.setPerfilPage(req, res));
 // set Logout page
 router.get("/logout", (req, res) => ctrlSession.setLogoutPage(req, res));
 // set Register page

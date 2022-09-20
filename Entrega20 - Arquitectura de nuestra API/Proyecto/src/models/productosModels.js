@@ -53,10 +53,10 @@ const modelProds = {
     funcProd.escribirArchivo(prods);
     return true;
   },
-  getProductxID: async (req, res) => {
+  getProductxID: async (req) => {
     const id = +req.params.id;
     const prods = await funcProd.getAll();
-    arr = prods.find((p) => p.id === id);
+    const arr = prods.find((p) => p.id === id);
     return { arr };
   },
 };

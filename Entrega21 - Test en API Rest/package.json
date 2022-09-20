@@ -1,0 +1,18 @@
+{
+  "type": "module",
+  "name": "entrega21---test-en-api-rest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "apirest.test.js",
+  "scripts": {
+    "test": "mocha apirest.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "supertest": "^6.2.4"
+  }
+}

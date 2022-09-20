@@ -20,7 +20,7 @@ const modelSession = {
   setPerfilPage: async (req) => {
     const carro =
       (await funcCart.getxCampo("iduser", req.session.iduser)) || false;
-    const user = await funcUser.getxCampo("email", req.session.user);
+    const user = await funcUser.getxCampo("email", req.params.id || req.session.user);
     user.nombreReal = user.nombre;
     user.nombre = user.email;
     return { user, carro };
