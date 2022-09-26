@@ -1,0 +1,40 @@
+type Producto {
+    id: ID!,
+    nombre: String,
+    precio: Int,
+    stock: Int,
+    codigo: String,
+    descripcion: String,
+    imageurl: String,
+    timestamp: Int,
+    feccarga: String
+}
+
+type Query {
+    getByIdProducto(id: ID): Producto
+    getAllProducto: [Producto]
+    getxCampoProducto(name: String, value: String): [Producto]
+}
+
+input AgregarProductoPayload {
+    nombre: String,
+    precio: Int,
+    stock: Int,
+    codigo: String,
+    descripcion: String,
+    imageurl: String,
+    timestamp: Int,
+    feccarga: String
+}
+
+input ModificarxCampoPayload {
+    id: ID!,
+    name: String,
+    value: String
+}
+
+type Mutation {
+    saveProducto(args: AgregarProductoPayload): Producto
+    updatexCampoProducto(args: ModificarxCampoPayload): Producto
+    deleteByIdProducto(id: ID): Boolean
+}

@@ -1,0 +1,103 @@
+<div class="h-screen flex items-center justify-center bg-slate-50">
+    <a href="/session/login" class="absolute top-[5%] left-[3%] text-white bg-purple-400 rounded-3xl p-3">
+        <span class="material-icons-outlined" title="Regresa al inicio">
+            arrow_back
+        </span>
+    </a>
+    <div class=" flex justify-center items-center w-full">
+        <form method="post" id="formRegister" action="/session/register" enctype="multipart/form-data">
+            <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-lg">
+                <div class="space-y-4">
+                    <h1 class="text-center text-2xl font-semibold text-gray-600">
+                        ¡Registro en demo!
+                    </h1>
+                    <div class="md:space-y-2 mb-3 mt-4">
+                        <div class="flex items-center w-full">
+                            <label class="w-full cursor-pointer" for="thumbnail">
+                                  <div class="flex flex-col justify-center items-center pt-5 pb-6">
+                                    <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none"
+                                        stroke="currentColor" view  Box="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                        </path>
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                            class="font-semibold">Click para subir imagen</span> o arrastre aquí</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Cualquier formato imagen</p>
+                                </div>
+                                <input class="hidden" type="file" :accept="accept" id="thumbnail" name="thumbnail">
+                                {{!-- <input
+                                    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300
+                                    rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                    type="file" :accept="accept" id="thumbnail" name="thumbnail"> --}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="block sm:flex gap-4">
+                        <div>
+                            <div>
+                                <label for="user" class="block mb-1 text-gray-600 font-semibold">
+                                    Email
+                                </label>
+                                <input class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" type="text"
+                                    name="user" id="user" placeholder="" required="required" />
+                            </div>
+                            <div>
+                                <label for="email" class="block mb-1 text-gray-600 font-semibold">
+                                    Password
+                                </label>
+                                <input class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" type="text"
+                                    name="password" id="password" placeholder="" required="required" />
+                            </div>
+                            <div>
+                                <label for="nombre" class="block mb-1 text-gray-600 font-semibold">
+                                    Nombre
+                                </label>
+                                <input class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" type="text"
+                                    name="nombre" id="nombre" placeholder="" required="required" />
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label for="direccion" class="block mb-1 text-gray-600 font-semibold">
+                                    Direccion
+                                </label>
+                                <input class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" type="text"
+                                    name="direccion" id="direccion" placeholder="" required="required" />
+                            </div>
+                            <div>
+                                <label for="edad" class="block mb-1 text-gray-600 font-semibold">
+                                    Edad
+                                </label>
+                                <input class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" type="text"
+                                    name="edad" id="edad" placeholder="" required="required" />
+                            </div>
+                            <div>
+                                <label for="telefono" class="block mb-1 text-gray-600 font-semibold">
+                                    Numero de telefono
+                                </label>
+                                <input class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" type="text"
+                                    name="telefono" id="telefono" placeholder="" required="required" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="mt-8 flex justify-center items-center">
+                    <Button class="bg-purple-500 text-white py-1 px-4 rounded ">Registrar</Button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('Mesage');
+    if (error) document.getElementById('error').innerText = error;
+
+
+
+</script>

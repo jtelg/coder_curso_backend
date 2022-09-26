@@ -1,0 +1,52 @@
+interface Producto {
+    id: String,
+    nombre: String,
+    precio: Int,
+    stock: Int,
+    codigo: String,
+    descripcion: String,
+    imageurl: String,
+    timestamp: Int,
+    feccarga: String,
+    check: Boolean
+}
+
+type Carrito {
+    id: ID!,
+    iduser: String,
+    estado: String,
+    productos: String,
+    codigo: String,
+    timestamp: Int,
+    feccarga: String
+}
+
+
+type Query {
+    getByIdCarrito(id: ID): Carrito
+    getAllCarrito: [Carrito]
+    getxCampoCarrito(name: String, value: String): [Carrito]
+    getProds_xcarro(id: ID): [Producto]
+}
+
+input AgregarCarritoPayload {
+    iduser: String,
+    estado: String,
+    productos: String,
+    codigo: String,
+    timestamp: Int,
+    feccarga: String
+}
+
+input ModificarxCampoPayload {
+    id: ID!,
+    name: String,
+    value: String
+}
+
+type Mutation {
+    saveCarrito(args: AgregarCarritoPayload): Carrito
+    updatexCampoCarrito(args: ModificarxCampoPayload): Carrito
+    deleteByIdCarrito(id: ID): Boolean
+    deleteProd_xcarro(id: ID, idProd: String): Boolean
+}

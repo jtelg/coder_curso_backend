@@ -1,0 +1,43 @@
+type Usuario {
+    id: ID!,
+    email: String,
+    password: String,
+    nombre: String,
+    direccion: String,
+    edad: String,
+    telefono: String,
+    timestamp: Int,
+    feccarga: String
+}
+
+
+type Query {
+    getByIdUsuario(id: ID): Usuario
+    getAllUsuario: [Usuario]
+    getxCampoUsuario(name: String, value: String): [Usuario]
+    getUserLogin(email: String, password: String): [Usuario]
+}
+
+input AgregarUsuarioPayload {
+    id: ID!,
+    email: String,
+    password: String,
+    nombre: String,
+    direccion: String,
+    edad: String,
+    telefono: String,
+    timestamp: Int,
+    feccarga: String
+}
+
+input ModificarxCampoPayload {
+    id: ID!,
+    name: String,
+    value: String
+}
+
+type Mutation {
+    saveUsuario(args: AgregarUsuarioPayload): Usuario
+    updatexCampoUsuario(args: ModificarxCampoPayload): Usuario
+    deleteByIdUsuario(id: ID): Boolean
+}

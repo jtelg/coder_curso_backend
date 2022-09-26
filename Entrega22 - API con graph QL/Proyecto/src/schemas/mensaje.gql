@@ -1,0 +1,35 @@
+type Mensaje {
+    id: ID!,
+    nombre: String,
+    msn: String,
+    color: String,
+    timestamp: Int,
+    feccarga: String
+}
+
+type Query {
+    getByIdMensaje(id: ID): Mensaje
+    getAllMensaje: [Mensaje]
+    getxCampoMensaje(name: String, value: String): [Mensaje]
+}
+
+input AgregarMensajePayload {
+    id: ID!,
+    nombre: String,
+    msn: String,
+    color: String,
+    timestamp: Int,
+    feccarga: String
+}
+
+input ModificarxCampoPayload {
+    id: ID!,
+    name: String,
+    value: String
+}
+
+type Mutation {
+    saveMensaje(args: AgregarMensajePayload): Mensaje
+    updatexCampoMensaje(args: ModificarxCampoPayload): Mensaje
+    deleteByIdMensaje(id: ID): Boolean
+}
